@@ -1,11 +1,15 @@
-service: aws-nodejs # NOTE: update this with your service name
+service: ft-quiz
 
 provider:
   name: aws
-  runtime: nodejs6.10
+  runtime: nodejs8.10
   stage: dev
   region: eu-west-2
 
 functions:
   quiz:
     handler: handler.quiz
+    events:
+      - http:
+          path: quiz
+          method: get
