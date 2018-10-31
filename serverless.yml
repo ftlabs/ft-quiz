@@ -1,0 +1,11 @@
+service: aws-nodejs # NOTE: update this with your service name
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  stage: dev
+  region: eu-west-2
+
+functions:
+  quiz:
+    handler: handler.quiz
