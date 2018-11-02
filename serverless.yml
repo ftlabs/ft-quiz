@@ -9,6 +9,11 @@ provider:
     environment: p
     teamDL: ftlabs@ft.com
     systemCode: ftlabs-quiz
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - comprehend:DetectKeyPhrases
+      Resource: "*"
 
 functions:
   ftlabs-quiz:

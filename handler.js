@@ -2,14 +2,26 @@
 
 const AWS = require("aws-sdk");
 
-module.exports.ftlabsQuiz = (event, context, callback) => {
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: "Go Serverless v1.0! Your function executed successfully!",
-      input: event
-    })
-  };
+const comprehend = new AWS.Comprehend();
 
-  callback(null, response);
+module.exports.ftlabsQuiz = async (event, context, callback) => {
+  var params = {
+    LanguageCode: "en" /* required */,
+    Text:
+      "Banksy painting ‘self-destructs’ on podium in auction prank" /* required */
+  };
+  try {
+    const data = await comprehend.detectKeyPhrases(params).promise();
+    const response = {
+      statusCode: 200,
+      body: JSON.stringify({
+        message: data,
+        input: event
+      })
+    };
+    callback(null, response);
+  } catch (err) {
+    console.error(err);
+    callback(null, err);
+  }
 };
