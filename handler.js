@@ -1,5 +1,7 @@
 "use strict";
 
+const AWS = require("aws-sdk");
+
 module.exports.ftlabsQuiz = (event, context, callback) => {
   const response = {
     statusCode: 200,
