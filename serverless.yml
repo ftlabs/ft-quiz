@@ -1,15 +1,19 @@
-service: ft-quiz
+service: ftlabs-quiz
 
 provider:
   name: aws
   runtime: nodejs8.10
   stage: dev
-  region: eu-west-2
+  region: eu-west-1
+  stackTags:
+    environment: p
+    teamDL: ftlabs@ft.com
+    systemCode: ftlabs-quiz
 
 functions:
-  quiz:
-    handler: handler.quiz
+  ftlabs-quiz:
+    handler: handler.ftlabsQuiz
     events:
       - http:
-          path: quiz
+          path: ftlabsQuiz
           method: get

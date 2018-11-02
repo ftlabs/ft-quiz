@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports.quiz = (event, context, callback) => {
+module.exports.ftlabsQuiz = (event, context, callback) => {
   const response = {
     statusCode: 200,
     body: JSON.stringify({
