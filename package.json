@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ftlabs/ft-quiz/issues"
   },
-  "homepage": "https://github.com/ftlabs/ft-quiz#readme"
+  "homepage": "https://github.com/ftlabs/ft-quiz#readme",
+  "dependencies": {
+    "aws-sdk": "^2.348.0"
+  }
 }
