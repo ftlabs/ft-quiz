@@ -17,7 +17,7 @@ module.exports.ftlabsQuiz = async (event, context, callback) => {
     const response = {
       statusCode: 200,
       body: JSON.stringify({
-        message: lanternData,
+        message: JSON.parse(lanternData),
         input: event
       })
     };
