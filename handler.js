@@ -1,11 +1,12 @@
 "use strict";
 
 const AWS = require("aws-sdk");
-
+const redactedQuestion = require("./lib/questionTypes/redactedHeadline");
 const comprehend = new AWS.Comprehend();
 
 module.exports.ftlabsQuiz = async (event, context, callback) => {
-  console.log(process.env.LANTERN_API_KEY);
+  const lanternData = await redactedQuestion.getQuestion();
+  console.log(lanternData);
   var params = {
     LanguageCode: "en" /* required */,
     Text:
@@ -16,7 +17,7 @@ module.exports.ftlabsQuiz = async (event, context, callback) => {
     const response = {
       statusCode: 200,
       body: JSON.stringify({
-        message: data,
+        message: lanternData,
         input: event
       })
     };
