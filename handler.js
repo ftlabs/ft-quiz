@@ -5,6 +5,7 @@ const AWS = require("aws-sdk");
 const comprehend = new AWS.Comprehend();
 
 module.exports.ftlabsQuiz = async (event, context, callback) => {
+  console.log(process.env.LANTERN_API_KEY);
   var params = {
     LanguageCode: "en" /* required */,
     Text:

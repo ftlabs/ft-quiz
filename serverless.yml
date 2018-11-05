@@ -5,6 +5,8 @@ provider:
   runtime: nodejs8.10
   stage: dev
   region: eu-west-1
+  environment:
+    LANTERN_API_KEY: "${file(./serverless.env.yml):dev.LANTERN_API_KEY}"
   stackTags:
     environment: p
     teamDL: ftlabs@ft.com
