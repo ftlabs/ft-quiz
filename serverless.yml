@@ -15,7 +15,7 @@ provider:
   iamRoleStatements:
     - Effect: "Allow"
       Action:
-        - comprehend:DetectKeyPhrases
+        - comprehend:batchDetectKeyPhrases
       Resource: "*"
 
 functions:
