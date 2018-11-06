@@ -5,8 +5,7 @@ const redactedQuestion = require("./lib/questionTypes/redactedHeadline");
 const comprehend = new AWS.Comprehend();
 
 module.exports.ftlabsQuiz = async (event, context, callback) => {
-  const lanternData = await redactedQuestion.getQuestion();
-  console.log(lanternData);
+  const redactedQuestions = await redactedQuestion.getQuestion();
   var params = {
     LanguageCode: "en" /* required */,
     Text:
@@ -17,7 +16,7 @@ module.exports.ftlabsQuiz = async (event, context, callback) => {
     const response = {
       statusCode: 200,
       body: JSON.stringify({
-        message: JSON.parse(lanternData),
+        message: redactedQuestions,
         input: event
       })
     };
