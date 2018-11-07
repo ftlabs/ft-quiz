@@ -25,3 +25,5 @@ functions:
       - http:
           path: ftlabsQuiz
           method: get
+          cors:
+            origin: "*"
