@@ -1,10 +1,12 @@
 "use strict";
 
 const redactedQuestion = require("./lib/questionTypes/redactedHeadline");
+const articleService = require("./lib/services/articleService");
 
 module.exports.ftlabsQuiz = async (event, context, callback) => {
   try {
-    const redactedQuestions = await redactedQuestion.getQuestion();
+    const articles = await articleService.get();
+    const redactedQuestions = await redactedQuestion.getQuestion(articles);
 
     const response = {
       statusCode: 200,
