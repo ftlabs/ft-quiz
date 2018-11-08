@@ -1,24 +1,30 @@
 "use strict";
 const articleService = require("./lib/services/articleService");
 const capiService = require("./lib/services/capi");
-const imageService = requrie("./lib/services/image");
+const imageService = require("./lib/services/image");
 const redactedQuestion = require("./lib/questionTypes/redactedHeadline");
 
 module.exports.ftlabsQuiz = async (event, context, callback) => {
   try {
     const articles = await articleService.get();
-    // const redactedQuestions = await redactedQuestion.getQuestion(articles);
-    const articleDetails = await Promise.all(
-      articles.data.topArticleViews.map(article =>
-        capiService.getArticle(article.key)
-      )
-    );
+    const redactedQuestions = await redactedQuestion.getQuestion(articles);
+    // let articleDetails = await Promise.all(
+    //   articles.data.topArticleViews.map(article =>
+    //     capiService.getArticle(article.key)
+    //   )
+    // );
+
+    // articleDetails = articleDetails.map(article => {
+    //   return article.mainImage
+    //     ? imageService.formatImageUrl(article.mainImage.id, 800)
+    //     : process.env.FT_LOGO;
+    // });
 
     const response = {
       statusCode: 200,
       headers: { "Access-Control-Allow-Origin": "*" },
       body: JSON.stringify({
-        message: articleDetails,
+        message: redactedQuestions,
         input: event
       })
     };

@@ -9,6 +9,7 @@ provider:
   environment:
     LANTERN_API_KEY: "${file(./serverless.env.yml):dev.LANTERN_API_KEY}"
     CAPI_KEY: "${file(./serverless.env.yml):dev.CAPI_KEY}"
+    FT_LOGO: "${file(./serverless.env.yml):dev.FT_LOGO}"
   stackTags:
     environment: p
     teamDL: ftlabs@ft.com
