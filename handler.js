@@ -1,6 +1,7 @@
 "use strict";
 const articleService = require("./lib/services/articleService");
 const capiService = require("./lib/services/capi");
+const imageService = requrie("./lib/services/image");
 const redactedQuestion = require("./lib/questionTypes/redactedHeadline");
 
 module.exports.ftlabsQuiz = async (event, context, callback) => {
