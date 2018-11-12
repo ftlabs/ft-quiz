@@ -7,24 +7,24 @@ const redactedQuestion = require("./lib/questionTypes/redactedHeadline");
 module.exports.ftlabsQuiz = async (event, context, callback) => {
   try {
     const articles = await articleService.get();
-    const redactedQuestions = await redactedQuestion.getQuestion(articles);
-    // let articleDetails = await Promise.all(
-    //   articles.data.topArticleViews.map(article =>
-    //     capiService.getArticle(article.key)
-    //   )
-    // );
+    // const redactedQuestions = await redactedQuestion.getQuestion(articles);
+    let articleDetails = await Promise.all(
+      articles.data.topArticleViews.map(article =>
+        capiService.getArticle(article.key)
+      )
+    );
 
-    // articleDetails = articleDetails.map(article => {
-    //   return article.mainImage
-    //     ? imageService.formatImageUrl(article.mainImage.id, 800)
-    //     : process.env.FT_LOGO;
-    // });
+    articleDetails = articleDetails.map(article => {
+      return article.mainImage && article.mainImage.members
+        ? imageService.formatImageUrl(article.mainImage.members[0], 800)
+        : process.env.FT_LOGO;
+    });
 
     const response = {
       statusCode: 200,
       headers: { "Access-Control-Allow-Origin": "*" },
       body: JSON.stringify({
-        message: redactedQuestions,
+        message: articleDetails,
         input: event
       })
     };

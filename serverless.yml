@@ -6,10 +6,13 @@ provider:
   stage: dev
   region: eu-west-1
   timeout: 30
+  profile: quiz
   environment:
     LANTERN_API_KEY: "${file(./serverless.env.yml):dev.LANTERN_API_KEY}"
     CAPI_KEY: "${file(./serverless.env.yml):dev.CAPI_KEY}"
     FT_LOGO: "${file(./serverless.env.yml):dev.FT_LOGO}"
+    IMAGE_SERVICE_URL: "${file(./serverless.env.yml):dev.IMAGE_SERVICE_URL}"
+    REPLACE_IMG_URL: "${file(./serverless.env.yml):dev.REPLACE_IMG_URL}"
   stackTags:
     environment: p
     teamDL: ftlabs@ft.com
