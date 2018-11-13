@@ -20,6 +20,8 @@ provider:
   iamRoleStatements:
     - Effect: "Allow"
       Action:
+        - rekognition:DetectFaces
+        - rekognition:RecognizeCelebrities
         - comprehend:DetectKeyPhrases
       Resource: "*"
 
