@@ -9,19 +9,17 @@ module.exports.ftlabsQuiz = async (event, context, callback) => {
   try {
     let articles = await articleService.get();
     articles = filterArticles(articles.data.topArticleViews);
-    // let articleDetails = await Promise.all(
-    //   articles.data.topArticleViews.map(article =>
-    //     capiService.getArticle(article.key)
-    //   )
-    // );
-    const redactedQuestions = await redactedQuestion.getQuestion(articles);
-    // const emojiResults = await emojiFace.getQuestion(articleDetails);
+    let articleDetails = await Promise.all(
+      articles.map(article => capiService.getArticle(article.key))
+    );
+    // const redactedQuestions = await redactedQuestion.getQuestion(articles);
+    const emojiResults = await emojiFace.getQuestion(articleDetails);
 
     const response = {
       statusCode: 200,
       headers: { "Access-Control-Allow-Origin": "*" },
       body: JSON.stringify({
-        message: redactedQuestions,
+        message: emojiResults,
         input: event
       })
     };
