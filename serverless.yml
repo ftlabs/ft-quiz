@@ -5,7 +5,7 @@ provider:
   runtime: nodejs8.10
   stage: dev
   region: eu-west-1
-  timeout: 30
+  timeout: 50
   environment:
     LANTERN_API_KEY: "${file(./serverless.env.yml):dev.LANTERN_API_KEY}"
     CAPI_KEY: "${file(./serverless.env.yml):dev.CAPI_KEY}"
