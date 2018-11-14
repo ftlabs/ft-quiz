@@ -6,7 +6,6 @@ provider:
   stage: dev
   region: eu-west-1
   timeout: 30
-  profile: quiz
   environment:
     LANTERN_API_KEY: "${file(./serverless.env.yml):dev.LANTERN_API_KEY}"
     CAPI_KEY: "${file(./serverless.env.yml):dev.CAPI_KEY}"
