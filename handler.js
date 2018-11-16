@@ -15,16 +15,16 @@ module.exports.ftlabsQuiz = async (event, context, callback) => {
         return { capiData, lanternData: article };
       })
     );
-    const redactedQuestions = await redactedQuestion.getQuestion(
-      articleDetails
-    );
-    // const emojiResults = await emojiFace.getQuestion(articleDetails);
+    // const redactedQuestions = await redactedQuestion.getQuestion(
+    //   articleDetails
+    // );
+    const emojiResults = await emojiFace.getQuestion(articleDetails);
 
     const response = {
       statusCode: 200,
       headers: { "Access-Control-Allow-Origin": "*" },
       body: JSON.stringify({
-        message: redactedQuestions,
+        message: emojiResults,
         input: event
       })
     };
