@@ -2,11 +2,9 @@
 const fs = require("fs");
 const articleService = require("./lib/services/articleService");
 const capiService = require("./lib/services/capi");
-// const redactedQuestion = require("./lib/questionTypes/redactedHeadline");
-// const emojiFace = require("./lib/questionTypes/emojiFace");
 const { filterArticles } = require("./lib/services/filter");
 
-const questions = fs.readdirSync("./lib/questionTypes").map(fileName => {
+let questions = fs.readdirSync("./lib/questionTypes").map(fileName => {
   const questionType = fileName.split(".")[0];
   return {
     questionType,
@@ -15,10 +13,26 @@ const questions = fs.readdirSync("./lib/questionTypes").map(fileName => {
 });
 
 module.exports.ftlabsQuiz = async (event, context, callback) => {
-  console.log("query", event.queryStringParameters);
-  console.log("questions", questions);
-
   try {
+    const queryStringParameters = event.queryStringParameters;
+    if (queryStringParameters && queryStringParameters.questionTypes) {
+      questions = questions.filter(question => {
+        const questionType = queryStringParameters.questionTypes
+          .split(",")
+          .find(
+            requestedQuestion => requestedQuestion === question.questionType
+          );
+        if (questionType) {
+          return true;
+        } else {
+          console.error(
+            "One of the inputted question types was invalid, it has been ignored"
+          );
+          return false;
+        }
+      });
+    }
+
     let articles = await articleService.get();
     articles = filterArticles(articles.data.topArticleViews);
     let articleDetails = await Promise.all(
@@ -27,12 +41,6 @@ module.exports.ftlabsQuiz = async (event, context, callback) => {
         return { capiData, lanternData: article };
       })
     );
-
-    // const redactedQuestions = await questions[0].file.getQuestion(
-    //   articleDetails
-    // );
-
-    // const emojiResults = await emojiFace.getQuestion(articleDetails);
 
     const results = await Promise.all(
       questions.map(
